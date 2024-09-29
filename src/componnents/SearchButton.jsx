@@ -25,6 +25,7 @@ export default function SearchButton() {
         <section>
             <h1> Search countries</h1>
             <button type={'button'} onClick={fetchSearchData}> Search Countries</button>
+
             <ul>{allWorlds.map((country) => {
                 return (<li key={country.id} className={getRegionColour(country.region)}>
                     <p>{country.name.common}</p>
