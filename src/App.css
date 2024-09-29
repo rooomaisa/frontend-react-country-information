@@ -15,3 +15,27 @@
 body {
     height: 100vh;
 }
+
+.region-africa {
+    color: blue;
+}
+
+.region-americas {
+    color: green;
+}
+
+.region-asia {
+    color: red;
+}
+
+.region-europe {
+    color: yellow;
+}
+
+.region-oceania {
+    color: purple;
+}
+
+.region-default {
+    color: gray;
+}
