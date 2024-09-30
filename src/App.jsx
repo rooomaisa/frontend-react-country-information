@@ -2,6 +2,7 @@ import './App.css';
 import Users from "./componnents/Users.jsx";
 import SearchButton from "./componnents/SearchButton.jsx";
 import worldImage from "./assets/world_map.png";
+import SearchButtonSecond from "./componnents/SearchButtonSecond.jsx";
 
 
 function App() {
@@ -13,9 +14,14 @@ function App() {
                 <div className="content">
 
                 <SearchButton/>
+                <SearchButtonSecond/>
 
                 </div>
             </section>
+
+            {/*<section>*/}
+            {/*    <SearchButtonSecond/>*/}
+            {/*</section>*/}
 
 
         </>
