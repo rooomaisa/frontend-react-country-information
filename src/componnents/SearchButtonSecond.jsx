@@ -4,38 +4,59 @@ import roundToMillions from "../helpers/roundToMillions.js";
 
 
 export default function SearchButtonSecond () {
-    const [searchCountry, SetSearchCountry] = useState([]);
+    // const [countries, setCountries] = useState([])
+    const [countryInfo, setCountryInfo] = useState({});
+    const [searchQuery, setSearchQuery] = useState('');
+    const [error, setError] = useState('');
 
-    async function fetchCountryData() {
+
+
+
+    async function handleSearch(event) {
+        event.preventDefault();
+        setError('');
+
         try {
             const response = await
-                axios.get("https://restcountries.com/v3.1/name/deutschland",);
-                SetSearchCountry(response.data);
+                axios.get(`https://restcountries.com/v3.1/name/${searchQuery}`);
+            const country = response.data[0];
+                setCountryInfo(country);
+                setSearchQuery('');
 
         } catch (error) {
             console.log(error);
+            setError(`${searchQuery} bestaat niet. Probeer het opnieuw.`);
         }
     }
-    console.log(searchCountry)
 
 
     return (
         <section>
-            <button type={'button'}
-                    onClick={fetchCountryData}>
+            <form onSubmit={handleSearch}>
+            <input
+                type={'text'}
+                name={'query'}
+                id={'query-field'}
+                placeholder={'search for a country'}
+                value={searchQuery}
+                onChange={(event) => setSearchQuery (event.target.value)}
+                />
+            <button type={'submit'}>
                 Search specific country
             </button>
-            {searchCountry.length > 0 && (
+            </form>
+
+            {Object.keys(countryInfo).length > 0 && (
                 <div>
                     <img
-                        src={searchCountry[0].flags.svg}
-                        alt={`Flag of ${searchCountry[0].name.common}`}
+                        src={countryInfo.flags.svg}
+                        alt={`Flag of ${countryInfo.name.common}`}
                         style={{width: '50px', height: '30px'}}
                     />
-                    <p>{searchCountry[0].name.common} is situated in</p>
-                    <p>{searchCountry[0].region} </p>
-                    <p>and the capital is {searchCountry[0].capital}</p>
-                    <p> it has a population of {roundToMillions(searchCountry[0].population)} people and it borders with </p>
+                    <p>{countryInfo.name.common} is situated in</p>
+                    <p>{countryInfo.region} </p>
+                    <p>and the capital is {countryInfo.capital}</p>
+                    <p> it has a population of {roundToMillions(countryInfo.population)} people and it borders with </p>
                 </div>
             )}
         </section>
